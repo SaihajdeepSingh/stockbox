@@ -1,3 +1,9 @@
-git add frontend/src/vite-env.d.ts
-git commit -m "fix vite env types for build"
-git push
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

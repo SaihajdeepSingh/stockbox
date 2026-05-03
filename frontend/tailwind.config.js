@@ -4,7 +4,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // StockBox brand palette — deep navy & electric blue on white
         brand: {
           50:  '#eff6ff',
           100: '#dbeafe',
@@ -26,9 +25,8 @@ export default {
           900: '#0a1a6b',
           950: '#060d3a',
         },
-        // Semantic trade colors
-        bull:  '#10b981', // green — price up / profit
-        bear:  '#ef4444', // red   — price down / loss
+        bull:  '#10b981',
+        bear:  '#ef4444',
       },
       fontFamily: {
         sans: ['Inter var', 'Inter', 'system-ui', 'sans-serif'],

@@ -1,4 +1,3 @@
-// server.js — StockBox Express server (Syllabus: Lecture 1-8, 9-12, 13-16, 25-28)
 const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 
@@ -14,7 +13,6 @@ const connectDB     = require('./config/db');
 const logger        = require('./middleware/logger');
 const { errorHandler } = require('./middleware/auth');
 
-// Route imports
 const authRoutes      = require('./routes/auth');
 const stockRoutes     = require('./routes/stocks');
 const portfolioRoutes = require('./routes/portfolio');
@@ -23,16 +21,13 @@ const contactRoutes   = require('./routes/contact');
 const app  = express();
 const PORT = process.env.PORT || 5000;
 
-// ─── Connect to MongoDB ──────────────────────────────────────────────────────
 connectDB();
 
-// ─── Security Middleware (Syllabus: Lecture 13-16) ──────────────────────────
 app.use(helmet({
   crossOriginEmbedderPolicy: false,
   contentSecurityPolicy: false,
 }));
 
-// CORS — allow requests from Vercel frontend
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -44,7 +39,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Rate limiting (Syllabus: Lecture 13-16)
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
@@ -61,14 +55,11 @@ const authLimiter = rateLimit({
 
 app.use(limiter);
 
-// ─── Body Parsing ────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// ─── Request Logger (Syllabus: Lecture 25-28) ────────────────────────────────
 app.use(logger);
 
-// ─── Session & Passport (Syllabus: Lecture 41-44) ────────────────────────────
 app.use(session({
   secret:            process.env.SESSION_SECRET || 'stockbox_session_secret',
   resave:            false,
@@ -78,26 +69,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ─── Health Check ────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'StockBox API', env: process.env.NODE_ENV }));
 
-// ─── API Routes ──────────────────────────────────────────────────────────────
 app.use('/api/auth',      authLimiter, authRoutes);
 app.use('/api/stocks',    stockRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/contact',   contactRoutes);
 
-// ─── 404 Handler ─────────────────────────────────────────────────────────────
 app.use('*', (req, res) => {
   res.status(404).json({ success: false, error: `Route ${req.originalUrl} not found.` });
 });
 
-// ─── Global Error Handler (Syllabus: Lecture 25-28) ─────────────────────────
 app.use(errorHandler);
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n🚀 StockBox API running on port ${PORT}`);
+  console.log(`\n StockBox API running on port ${PORT}`);
   console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`   Health check: http://localhost:${PORT}/health\n`);
 });

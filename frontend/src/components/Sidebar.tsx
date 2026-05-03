@@ -21,7 +21,6 @@ export default function Sidebar({ onClose }: SidebarProps) {
   return (
     <aside className="w-64 h-full flex flex-col bg-[#060d3a] border-r border-white/8">
 
-      {/* Logo */}
       <div className="px-5 py-5 flex items-center justify-between border-b border-white/8">
         <Link to="/" className="flex items-center gap-2.5 group">
           <StockBoxLogo size={34} className="group-hover:scale-105 transition-transform duration-200" />
@@ -36,9 +35,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
         )}
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5">
-
         {NAV_ITEMS.map(({ to, icon: Icon, label, end }) => (
           <NavLink key={to} to={to} end={end} onClick={onClose}
             className={({ isActive }) =>
@@ -55,9 +52,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Bottom: user + logout merged */}
       <div className="px-3 pb-4 space-y-1 border-t border-white/8 pt-3">
-        {/* User row */}
         <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl">
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-black shrink-0 shadow-md">
             {user?.name?.charAt(0).toUpperCase() || 'U'}
@@ -68,7 +63,6 @@ export default function Sidebar({ onClose }: SidebarProps) {
           </div>
         </div>
 
-        {/* Logout */}
         <button onClick={handleLogout}
           className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 w-full transition-all">
           <LogOut className="w-4 h-4 shrink-0" />

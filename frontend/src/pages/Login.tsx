@@ -41,12 +41,10 @@ export default function Login() {
     <div className="min-h-screen flex bg-[#060d3a]"
       style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.05) 1px,transparent 1px)', backgroundSize:'48px 48px' }}>
 
-      {/* Left panel */}
       <div className="hidden lg:flex lg:w-[52%] flex-col p-12 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[450px] h-[350px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[300px] h-[250px] bg-blue-400/8 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Navbar-matching top bar */}
         <div className="relative flex items-center justify-between mb-16">
           <Link to="/" className="flex items-center gap-2.5 group">
             <StockBoxLogo size={38} className="group-hover:scale-105 transition-transform" />
@@ -85,7 +83,6 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Mock portfolio card */}
           <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 backdrop-blur-sm mt-10">
             <div className="flex justify-between items-start mb-4">
               <div>
@@ -111,11 +108,9 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Right panel */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 lg:p-12 relative">
         <div className="absolute inset-0 bg-slate-950/65 lg:bg-slate-950/82" />
 
-        {/* Mobile header matching navbar */}
         <div className="relative w-full max-w-[400px] flex items-center justify-between mb-8 lg:hidden">
           <Link to="/" className="flex items-center gap-2">
             <StockBoxLogo size={34} />

@@ -1,4 +1,3 @@
-// config/db.js — MongoDB connection via Mongoose (Syllabus: Lecture 33-36)
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -8,15 +7,15 @@ const connectDB = async () => {
       socketTimeoutMS: 45000,
       family: 4,
     });
-    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
+    console.log(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error.message);
+    console.error('MongoDB connection error:', error.message);
     process.exit(1);
   }
 };
 
 mongoose.connection.on('disconnected', () => {
-  console.warn('⚠️  MongoDB disconnected — attempting reconnect...');
+  console.warn('MongoDB disconnected — attempting reconnect...');
 });
 
 mongoose.connection.on('error', (err) => {

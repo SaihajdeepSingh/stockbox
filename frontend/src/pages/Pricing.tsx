@@ -47,7 +47,6 @@ export default function Pricing() {
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Navbar />
 
-      {/* Hero */}
       <section className="relative bg-[#060d3a] overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px)', backgroundSize:'48px 48px' }} />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-blue-600/20 rounded-full blur-3xl" />
@@ -66,7 +65,6 @@ export default function Pricing() {
         <div className="h-12 bg-gradient-to-b from-transparent to-[#f8fafc]" />
       </section>
 
-      {/* Pricing card */}
       <section className="section bg-[#f8fafc]">
         <div ref={cardReveal.ref}
           className={`max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 ${cardReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -108,7 +106,6 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="section bg-[#f8fafc]">
         <div ref={faqReveal.ref}
           className={`max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 ${faqReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

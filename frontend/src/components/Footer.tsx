@@ -1,4 +1,3 @@
-// src/components/Footer.tsx — Premium fintech footer with custom logo
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Twitter, Github, Linkedin, Youtube, Instagram, ArrowRight, ArrowUpRight, Shield } from 'lucide-react';
@@ -84,7 +83,6 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#060d3a] overflow-hidden" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
 
-      {/* ── Background decoration ── */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.035) 1px,transparent 1px)', backgroundSize: '56px 56px' }} />
         <div className="absolute bottom-0 left-1/3 w-[500px] h-[280px] bg-blue-700/10 rounded-full blur-3xl" />
@@ -97,12 +95,9 @@ export default function Footer() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* ══ TOP: brand + newsletter ══ */}
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-start py-14 border-b border-white/[0.07]">
 
-          {/* Brand */}
           <div>
-            {/* Logo — uses custom SVG component */}
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
               <StockBoxLogo size={40} className="group-hover:scale-105 transition-transform duration-200" />
               <span className="text-xl font-black text-white tracking-tight">
@@ -114,7 +109,6 @@ export default function Footer() {
               India's premier paper trading simulator. Real NSE prices, ₹10L virtual capital, professional charts. Zero financial risk.
             </p>
 
-            {/* 5 social icons */}
             <div className="flex gap-1.5">
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a key={label} href={href} aria-label={label}
@@ -125,7 +119,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div className="lg:pt-1">
             <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Newsletter</p>
             <p className="text-white font-bold text-lg mb-1">Market insights, monthly.</p>
@@ -136,7 +129,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ══ MIDDLE: link columns ══ */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-white/[0.07]">
           {COLS.map(({ heading, links }) => (
             <div key={heading}>
@@ -164,7 +156,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* ══ BOTTOM BAR ══ */}
         <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600">
             <span>© {new Date().getFullYear()} StockBox Technologies</span>

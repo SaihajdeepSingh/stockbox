@@ -10,12 +10,10 @@ export default function DashboardLayout() {
   return (
     <div className="min-h-screen bg-[#f0f2f8] flex">
 
-      {/* Desktop sidebar — sticky full height */}
       <div className="hidden lg:flex lg:shrink-0 h-screen sticky top-0">
         <Sidebar />
       </div>
 
-      {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
@@ -25,10 +23,8 @@ export default function DashboardLayout() {
         </div>
       )}
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
 
-        {/* Mobile topbar */}
         <header className="lg:hidden sticky top-0 z-40 bg-[#060d3a] border-b border-white/8 px-4 h-14 flex items-center gap-3">
           <button onClick={() => setSidebarOpen(true)}
             className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
@@ -40,7 +36,6 @@ export default function DashboardLayout() {
           </Link>
         </header>
 
-        {/* Page */}
         <main className="flex-1 p-4 md:p-6 lg:p-8 animate-fade-in">
           <Outlet />
         </main>

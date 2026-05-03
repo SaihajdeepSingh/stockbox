@@ -57,12 +57,10 @@ export default function Signup() {
     <div className="min-h-screen flex bg-[#060d3a]"
       style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.05) 1px,transparent 1px)', backgroundSize:'48px 48px' }}>
 
-      {/* Left panel */}
       <div className="hidden lg:flex lg:w-[45%] flex-col p-12 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[250px] h-[250px] bg-cyan-400/8 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Navbar-matching top bar */}
         <div className="relative flex items-center justify-between mb-16">
           <Link to="/" className="flex items-center gap-2.5 group">
             <StockBoxLogo size={38} className="group-hover:scale-105 transition-transform" />
@@ -87,7 +85,6 @@ export default function Signup() {
             </p>
           </div>
 
-          {/* Steps */}
           <div className="space-y-4">
             <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">What happens next</p>
             {STEPS.map(({ n, label, done }) => (
@@ -110,11 +107,9 @@ export default function Signup() {
         <p className="relative text-slate-600 text-xs mt-8">© {new Date().getFullYear()} StockBox. Paper trading only.</p>
       </div>
 
-      {/* Right panel */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 lg:p-10 relative overflow-y-auto">
         <div className="absolute inset-0 bg-slate-950/70 lg:bg-slate-950/85" />
 
-        {/* Mobile header */}
         <div className="relative w-full max-w-md flex items-center justify-between mb-8 lg:hidden">
           <Link to="/" className="flex items-center gap-2">
             <StockBoxLogo size={34} />

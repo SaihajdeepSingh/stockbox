@@ -1,4 +1,3 @@
-// src/pages/Home.tsx — Industry-grade redesign
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -9,7 +8,6 @@ import {
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-/* ── Scroll-reveal hook ─────────────────────────────────────── */
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -21,7 +19,6 @@ function useReveal() {
   return { ref, visible };
 }
 
-/* ── Animated counter ───────────────────────────────────────── */
 function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
   const [val, setVal] = useState(0);
   const { ref, visible } = useReveal();
@@ -38,16 +35,12 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
   return <span ref={ref}>{prefix}{val.toLocaleString('en-IN')}{suffix}</span>;
 }
 
-/* ── Mock terminal preview (SVG-based) ─────────────────────── */
 function TerminalPreview() {
   return (
     <div className="relative w-full max-w-lg mx-auto select-none">
-      {/* Glow */}
       <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
 
-      {/* Window */}
       <div className="relative bg-[#0f1729] rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
-        {/* Title bar */}
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/5">
           <div className="flex gap-1.5">
             <div className="w-3 h-3 rounded-full bg-red-500/70" />
@@ -57,9 +50,7 @@ function TerminalPreview() {
           <span className="text-white/40 text-xs font-mono ml-2">StockBox — Trading Terminal</span>
         </div>
 
-        {/* Content */}
         <div className="p-4 space-y-3">
-          {/* Balance row */}
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/40 text-xs uppercase tracking-wider">Cash Balance</p>
@@ -71,7 +62,6 @@ function TerminalPreview() {
             </div>
           </div>
 
-          {/* Mini chart bars */}
           <div className="flex items-end gap-0.5 h-16 bg-white/5 rounded-lg px-3 py-2">
             {[40,55,45,70,60,80,65,90,75,85,70,95,80,72,88,92,78,96,85,100,88,94].map((h, i) => (
               <div key={i} className="flex-1 rounded-sm transition-all"
@@ -79,7 +69,6 @@ function TerminalPreview() {
             ))}
           </div>
 
-          {/* Stock rows */}
           {[
             { s: 'RELIANCE', p: '₹1,436.20', c: '+1.55%', up: true },
             { s: 'TCS',      p: '₹2,474.80', c: '+0.00%', up: true },
@@ -100,7 +89,6 @@ function TerminalPreview() {
             </div>
           ))}
 
-          {/* Trade buttons */}
           <div className="grid grid-cols-2 gap-2 pt-1">
             <div className="bg-green-500/20 border border-green-500/30 rounded-lg py-2 text-center">
               <span className="text-green-400 text-sm font-bold tracking-wide">BUY</span>
@@ -112,12 +100,10 @@ function TerminalPreview() {
         </div>
       </div>
 
-      {/* Floating badge 1 */}
       <div className="absolute -top-4 -right-4 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
         +₹24,830 profit
       </div>
 
-      {/* Floating badge 2 */}
       <div className="absolute -bottom-4 -left-4 bg-white text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse inline-block" />
         Live NSE prices
@@ -126,7 +112,6 @@ function TerminalPreview() {
   );
 }
 
-/* ── Ticker item ────────────────────────────────────────────── */
 const TICKER_STOCKS = [
   { s: 'RELIANCE', p: '₹1,436', c: '+1.55%', up: true },
   { s: 'TCS',      p: '₹2,474', c: '+0.00%', up: true },
@@ -140,7 +125,6 @@ const TICKER_STOCKS = [
   { s: 'TATAMOTORS', p: '₹656', c: '+0.87%', up: true },
 ];
 
-/* ── Features ───────────────────────────────────────────────── */
 const FEATURES = [
   { icon: BarChart2, title: 'Live Candlestick Charts', desc: 'Real OHLCV data from Yahoo Finance. Daily, weekly, monthly and yearly views for all 20+ NSE stocks.', color: 'from-blue-600 to-blue-400' },
   { icon: Shield,    title: '₹10 Lakh Paper Balance', desc: 'Start with ₹10,00,000 virtual money. Execute real trades at real prices with zero financial risk.', color: 'from-emerald-600 to-emerald-400' },
@@ -150,7 +134,6 @@ const FEATURES = [
   { icon: Activity,  title: 'Full Trade History', desc: 'Paginated audit trail of every buy and sell with realised P&L, win rate and balance snapshots.', color: 'from-cyan-600 to-cyan-400' },
 ];
 
-/* ── Steps ──────────────────────────────────────────────────── */
 const STEPS = [
   { n: '01', title: 'Create Free Account', desc: 'Sign up in under 60 seconds. No credit card, no KYC, no documents required.' },
   { n: '02', title: 'Get ₹10 Lakh Balance', desc: 'Your paper trading wallet is credited instantly on signup.' },
@@ -158,34 +141,28 @@ const STEPS = [
   { n: '04', title: 'Track & Improve', desc: 'Review portfolio performance, P&L history and market news to sharpen your strategy.' },
 ];
 
-/* ── Testimonials ───────────────────────────────────────────── */
 const TESTIMONIALS = [
   { name: 'Priya Mehta',    role: 'B.Tech Student, BITS Pilani', text: 'StockBox gave me the confidence to understand market movements without any financial anxiety. The charts are genuinely professional.', rating: 5, initials: 'PM' },
   { name: 'Arjun Sharma',   role: 'MBA, IIM Ahmedabad',          text: 'I simulated an entire market cycle on StockBox before investing real capital. The paper trading logic is exactly how real brokers work.', rating: 5, initials: 'AS' },
   { name: 'Divya Krishnan', role: 'CA Finalist',                  text: 'The live NSE prices and Finnhub news integration make this feel like a real terminal. An essential tool for any finance student.', rating: 5, initials: 'DK' },
 ];
 
-/* ══════════════════════════════════════════════════════════════ */
 export default function Home() {
-  const featuresReveal    = useReveal();
-  const stepsReveal       = useReveal();
-  const testReveal        = useReveal();
+  const featuresReveal = useReveal();
+  const stepsReveal    = useReveal();
+  const testReveal     = useReveal();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Navbar />
 
-      {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="relative bg-[#060d3a] overflow-hidden">
-        {/* Background grid */}
         <div className="absolute inset-0"
           style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
-        {/* Radial glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-3xl" />
 
         <div className="container-main relative pt-32 pb-20 lg:pt-36 lg:pb-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: copy */}
             <div className="animate-slide-up">
               <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 text-sm font-medium text-blue-300 mb-8">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -216,7 +193,6 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Stats row */}
               <div className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t border-white/10">
                 {[
                   { val: '₹10L', label: 'Starting Capital' },
@@ -232,18 +208,15 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: terminal mockup */}
             <div className="hidden lg:block">
               <TerminalPreview />
             </div>
           </div>
         </div>
 
-        {/* Bottom fade */}
         <div className="h-16 bg-gradient-to-b from-transparent to-[#060d3a]" />
       </section>
 
-      {/* ══ TICKER ════════════════════════════════════════════ */}
       <div className="bg-[#040b2e] border-t border-white/8 py-3 overflow-hidden">
         <div className="ticker-content">
           {[...TICKER_STOCKS, ...TICKER_STOCKS].map((s, i) => (
@@ -257,7 +230,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ══ FEATURES ══════════════════════════════════════════ */}
       <section className="section bg-[#f8fafc]">
         <div
           ref={featuresReveal.ref}
@@ -280,7 +252,6 @@ export default function Home() {
                 className="group relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
-                {/* Gradient hover bg */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-50/0 to-blue-50/0 group-hover:from-blue-50/80 group-hover:to-transparent transition-all duration-300" />
 
                 <div className="relative">
@@ -296,7 +267,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ HOW IT WORKS ══════════════════════════════════════ */}
       <section className="section bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0"
           style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(29,78,216,0.15) 0%, transparent 60%), radial-gradient(circle at 80% 50%, rgba(16,185,129,0.08) 0%, transparent 60%)' }} />
@@ -314,7 +284,6 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {STEPS.map(({ n, title, desc }, i) => (
               <div key={n} className="relative group">
-                {/* Connector line */}
                 {i < STEPS.length - 1 && (
                   <div className="hidden lg:block absolute top-8 left-[calc(50%+28px)] right-0 h-px bg-gradient-to-r from-blue-800 to-transparent" />
                 )}
@@ -338,7 +307,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ METRICS ════════════════════════════════════════════ */}
       <section className="py-16 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700">
         <div className="container-main grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
           {[
@@ -358,7 +326,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ TESTIMONIALS ══════════════════════════════════════ */}
       <section className="section bg-[#f8fafc]">
         <div
           ref={testReveal.ref}
@@ -393,7 +360,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ FINAL CTA ═════════════════════════════════════════ */}
       <section className="relative bg-[#060d3a] py-24 overflow-hidden">
         <div className="absolute inset-0"
           style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(29,78,216,0.3) 0%, transparent 70%)' }} />

@@ -1,4 +1,3 @@
-// models/Portfolio.js — User portfolio with paper trading balance (Syllabus: Lecture 33-36)
 const mongoose = require('mongoose');
 
 const holdingSchema = new mongoose.Schema({
@@ -20,19 +19,17 @@ const portfolioSchema = new mongoose.Schema({
   },
   cashBalance: {
     type: Number,
-    default: 1000000, // ₹10,00,000 starting paper money
+    default: 1000000,
     min: 0,
   },
   holdings: [holdingSchema],
   totalDeposited: { type: Number, default: 1000000 },
 }, { timestamps: true });
 
-// Virtual: compute total invested value
 portfolioSchema.virtual('totalInvestedValue').get(function () {
   return this.holdings.reduce((sum, h) => sum + h.totalInvested, 0);
 });
 
-// Method: get or create a holding for a symbol
 portfolioSchema.methods.getHolding = function (symbol) {
   return this.holdings.find(h => h.symbol === symbol.toUpperCase()) || null;
 };

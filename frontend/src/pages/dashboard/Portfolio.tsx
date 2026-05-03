@@ -7,7 +7,6 @@ import api, { formatINR, formatPct } from '@/lib/api';
 import toast from 'react-hot-toast';
 import type { Portfolio as PortfolioType, Holding } from '@/types';
 
-/* ══ Confirm Reset Modal ══════════════════════════════════════ */
 function ConfirmModal({ onConfirm, onCancel }: { onConfirm: () => void; onCancel: () => void }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
@@ -35,7 +34,6 @@ function ConfirmModal({ onConfirm, onCancel }: { onConfirm: () => void; onCancel
   );
 }
 
-/* ══ Stock Info Modal (click stock name) ══════════════════════ */
 function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
   holding: Holding;
   cashBalance: number;
@@ -46,7 +44,7 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
   const [qty, setQty] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const total = parseFloat((holding.currentPrice * qty).toFixed(2));
+  const total   = parseFloat((holding.currentPrice * qty).toFixed(2));
   const canBuy  = cashBalance >= total && qty > 0;
   const canSell = holding.quantity >= qty && qty > 0;
 
@@ -69,7 +67,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-slide-up">
 
-        {/* Header */}
         <div className="flex items-start justify-between p-5 border-b border-slate-100">
           <div>
             <h2 className="font-black text-slate-900 text-lg">{holding.companyName}</h2>
@@ -81,7 +78,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
           </button>
         </div>
 
-        {/* Tabs */}
         <div className="flex border-b border-slate-100">
           {(['info', 'buy', 'sell'] as const).map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
@@ -96,17 +92,16 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
         </div>
 
         <div className="p-5">
-          {/* Info tab */}
           {activeTab === 'info' && (
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: 'Current Price',   val: formatINR(holding.currentPrice),   color: '' },
-                  { label: 'Shares Held',     val: holding.quantity.toString(),        color: '' },
-                  { label: 'Avg Buy Price',   val: formatINR(holding.avgBuyPrice),    color: '' },
-                  { label: 'Total Invested',  val: formatINR(holding.totalInvested),  color: '' },
-                  { label: 'Current Value',   val: formatINR(holding.currentValue),   color: '' },
-                  { label: 'Unrealised P&L',  val: `${holding.profitLoss >= 0 ? '+' : ''}${formatINR(holding.profitLoss)}`,
+                  { label: 'Current Price',  val: formatINR(holding.currentPrice),  color: '' },
+                  { label: 'Shares Held',    val: holding.quantity.toString(),       color: '' },
+                  { label: 'Avg Buy Price',  val: formatINR(holding.avgBuyPrice),   color: '' },
+                  { label: 'Total Invested', val: formatINR(holding.totalInvested), color: '' },
+                  { label: 'Current Value',  val: formatINR(holding.currentValue),  color: '' },
+                  { label: 'Unrealised P&L', val: `${holding.profitLoss >= 0 ? '+' : ''}${formatINR(holding.profitLoss)}`,
                     color: holding.profitLoss >= 0 ? 'text-emerald-600' : 'text-red-500' },
                 ].map(({ label, val, color }) => (
                   <div key={label} className="bg-slate-50 rounded-xl p-3 border border-slate-100">
@@ -116,7 +111,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
                 ))}
               </div>
 
-              {/* P&L bar */}
               <div className="bg-slate-50 rounded-xl p-3 border border-slate-100">
                 <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">
                   <span>Return</span>
@@ -132,7 +126,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
                 </div>
               </div>
 
-              {/* Quick action buttons */}
               <div className="flex gap-2 pt-1">
                 <button onClick={() => setActiveTab('buy')}
                   className="flex-1 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm rounded-xl transition-all shadow-md shadow-emerald-100">
@@ -146,16 +139,13 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
             </div>
           )}
 
-          {/* Buy / Sell tab */}
           {(activeTab === 'buy' || activeTab === 'sell') && (
             <div className="space-y-4">
-              {/* Price */}
               <div className="flex justify-between items-center bg-slate-50 rounded-xl p-3 border border-slate-100">
                 <span className="text-sm text-slate-500 font-medium">Market Price</span>
                 <span className="font-black text-slate-900 font-mono">{formatINR(holding.currentPrice)}</span>
               </div>
 
-              {/* Qty selector */}
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Quantity</label>
                 <div className="flex items-center gap-2">
@@ -177,7 +167,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
                 )}
               </div>
 
-              {/* Summary */}
               <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-1.5 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Price per share</span>
@@ -189,14 +178,12 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
                 </div>
               </div>
 
-              {/* Available */}
               {activeTab === 'buy' && (
                 <p className="text-xs text-slate-400 font-medium">
                   Available: <strong className="text-slate-700 font-mono">{formatINR(cashBalance)}</strong>
                 </p>
               )}
 
-              {/* Execute */}
               <button
                 onClick={() => executeTrade(activeTab === 'buy' ? 'BUY' : 'SELL')}
                 disabled={loading || (activeTab === 'buy' ? !canBuy : !canSell)}
@@ -222,7 +209,6 @@ function StockInfoModal({ holding, cashBalance, onClose, onTradeSuccess }: {
   );
 }
 
-/* ══ Stat Card ════════════════════════════════════════════════ */
 function StatCard({ label, value, sub, positive }: { label: string; value: string; sub?: string; positive?: boolean }) {
   return (
     <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
@@ -239,14 +225,13 @@ function StatCard({ label, value, sub, positive }: { label: string; value: strin
 
 const BAR_COLORS = ['bg-blue-600','bg-purple-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500','bg-indigo-500','bg-orange-500'];
 
-/* ══ Main Portfolio Component ════════════════════════════════ */
 export default function Portfolio() {
-  const [portfolio,    setPortfolio]    = useState<PortfolioType | null>(null);
-  const [loading,      setLoading]      = useState(true);
-  const [resetting,    setResetting]    = useState(false);
-  const [showConfirm,  setShowConfirm]  = useState(false);
+  const [portfolio,       setPortfolio]       = useState<PortfolioType | null>(null);
+  const [loading,         setLoading]         = useState(true);
+  const [resetting,       setResetting]       = useState(false);
+  const [showConfirm,     setShowConfirm]     = useState(false);
   const [selectedHolding, setSelectedHolding] = useState<Holding | null>(null);
-  const [tradeType,    setTradeType]    = useState<'info' | 'buy' | 'sell'>('info');
+  const [tradeType,       setTradeType]       = useState<'info' | 'buy' | 'sell'>('info');
 
   const load = async () => {
     try {
@@ -286,7 +271,6 @@ export default function Portfolio() {
   return (
     <div className="space-y-5 animate-fade-in">
 
-      {/* Modals */}
       {showConfirm && <ConfirmModal onConfirm={handleReset} onCancel={() => setShowConfirm(false)} />}
       {selectedHolding && (
         <StockInfoModal
@@ -297,7 +281,6 @@ export default function Portfolio() {
         />
       )}
 
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-black text-slate-900">Portfolio</h1>
@@ -316,7 +299,6 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Cash Balance"   value={formatINR(portfolio?.cashBalance ?? 0, true)} />
         <StatCard label="Invested Value" value={formatINR(portfolio?.totalInvested ?? 0, true)} />
@@ -326,7 +308,6 @@ export default function Portfolio() {
           sub={`${netChange >= 0 ? '+' : ''}${formatINR(netChange, true)} overall`} positive={netChange >= 0} />
       </div>
 
-      {/* Holdings table */}
       <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <div className="flex items-center gap-2">
@@ -355,7 +336,6 @@ export default function Portfolio() {
                 {portfolio.holdings.map((h, i) => (
                   <tr key={h.symbol} className={`border-b border-slate-50 transition-colors ${i % 2 === 0 ? 'hover:bg-slate-50' : 'bg-slate-50/30 hover:bg-slate-50'}`}>
 
-                    {/* Stock — clickable info */}
                     <td className="px-4 py-3">
                       <button onClick={() => openHolding(h, 'info')}
                         className="text-left group flex items-center gap-1.5">
@@ -381,7 +361,6 @@ export default function Portfolio() {
                       {formatPct(h.profitPct)}
                     </td>
 
-                    {/* Buy / Sell action buttons */}
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         <button
@@ -412,7 +391,6 @@ export default function Portfolio() {
         )}
       </div>
 
-      {/* Allocation */}
       {(portfolio?.holdings?.length ?? 0) > 0 && (
         <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
           <h3 className="font-black text-slate-900 mb-5">Portfolio Allocation</h3>

@@ -1,4 +1,3 @@
-// routes/stocks.js — Stock data routes
 const router = require('express').Router();
 const {
   getPopularStocks, getQuote, getCandles,
@@ -6,7 +5,6 @@ const {
 } = require('../controllers/stockController');
 const { requireAuth } = require('../middleware/auth');
 
-// All stock routes require authentication
 router.use(requireAuth);
 
 router.get('/popular',                getPopularStocks);

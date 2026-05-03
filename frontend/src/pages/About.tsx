@@ -37,7 +37,6 @@ export default function About() {
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Navbar />
 
-      {/* Hero */}
       <section className="relative bg-[#060d3a] overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/20 rounded-full blur-3xl" />
@@ -58,7 +57,6 @@ export default function About() {
         <div className="h-12 bg-gradient-to-b from-transparent to-[#f8fafc]" />
       </section>
 
-      {/* Story */}
       <section className="section bg-[#f8fafc]">
         <div className="container-main">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -74,7 +72,6 @@ export default function About() {
               </div>
             </div>
 
-            {/* Stats card */}
             <div className="bg-slate-950 rounded-3xl p-8 border border-white/10">
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -98,7 +95,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Values */}
       <section className="section bg-white">
         <div ref={valuesReveal.ref}
           className={`container-main transition-all duration-700 ${valuesReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -122,7 +118,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
       <section className="section bg-[#060d3a] relative overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, rgba(29,78,216,0.15) 0%, transparent 60%)' }} />
         <div ref={timelineReveal.ref}
@@ -151,13 +146,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="relative bg-[#060d3a] py-28 overflow-hidden">
-        {/* Radial glow */}
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(29,78,216,0.4) 0%, transparent 65%)' }} />
-        {/* Grid */}
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.05) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
-        {/* Side glows */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl" />
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/8 rounded-full blur-3xl" />
 
@@ -186,7 +177,6 @@ export default function About() {
             </Link>
           </div>
 
-          {/* Trust row */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-10 pt-8 border-t border-white/10">
             {['No credit card', 'No KYC', 'Instant access', 'Free forever'].map(t => (
               <span key={t} className="text-xs font-semibold text-blue-300/60 flex items-center gap-1.5">

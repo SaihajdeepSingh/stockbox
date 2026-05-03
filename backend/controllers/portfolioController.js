@@ -1,12 +1,9 @@
-// controllers/portfolioController.js — Paper trading logic
-// Uses Yahoo Finance for live prices (free, no API key)
 const axios     = require('axios');
 const Portfolio = require('../models/Portfolio');
 const Trade     = require('../models/Trade');
 
 const YAHOO_CHART = 'https://query1.finance.yahoo.com/v8/finance/chart';
 
-// Fetch live INR price via Yahoo Finance
 const getLivePrice = async (symbol) => {
   const yahooSymbol = symbol.toUpperCase().replace('NSE:', '') + '.NS';
   const res = await axios.get(`${YAHOO_CHART}/${yahooSymbol}`, {
@@ -21,14 +18,12 @@ const getLivePrice = async (symbol) => {
   return parseFloat(price.toFixed(2));
 };
 
-// Get or create portfolio for a user (starts with ₹10 lakh)
 const getOrCreatePortfolio = async (userId) => {
   let p = await Portfolio.findOne({ userId });
   if (!p) p = await Portfolio.create({ userId, cashBalance: 1000000 });
   return p;
 };
 
-// GET /api/portfolio
 const getPortfolio = async (req, res, next) => {
   try {
     const portfolio = await getOrCreatePortfolio(req.user._id);
@@ -75,13 +70,11 @@ const getPortfolio = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// POST /api/portfolio/trade
 const executeTrade = async (req, res, next) => {
   try {
     const { symbol, type, quantity, companyName = '', exchange = 'NSE' } = req.body;
     const sym = symbol.toUpperCase();
 
-    // Fetch real-time price
     let price;
     try {
       price = await getLivePrice(sym);
@@ -153,7 +146,6 @@ const executeTrade = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/portfolio/history
 const getHistory = async (req, res, next) => {
   try {
     const page  = parseInt(req.query.page)  || 1;
@@ -167,7 +159,6 @@ const getHistory = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/portfolio/stats
 const getStats = async (req, res, next) => {
   try {
     const trades      = await Trade.find({ userId: req.user._id }).lean();
@@ -187,7 +178,6 @@ const getStats = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// POST /api/portfolio/reset
 const resetPortfolio = async (req, res, next) => {
   try {
     await Portfolio.findOneAndUpdate({ userId: req.user._id }, { cashBalance: 1000000, holdings: [] });

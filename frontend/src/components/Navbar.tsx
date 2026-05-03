@@ -32,7 +32,6 @@ export default function Navbar() {
   useEffect(() => { setOpen(false); }, [location.pathname]);
   const handleLogout = () => { logout(); navigate('/'); };
 
-  // Always slightly opaque so text is readable on any background
   const navBg = onDarkPage
     ? scrolled
       ? 'bg-[#060d3a]/96 backdrop-blur-md shadow-xl shadow-black/30 border-b border-white/8'
@@ -53,7 +52,6 @@ export default function Navbar() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${navBg}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
 
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
           <StockBoxLogo size={38} className="group-hover:scale-105 transition-transform duration-200" />
           <span className={`font-black text-[20px] tracking-tight leading-none transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -61,7 +59,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-0.5">
           {NAV_LINKS.map(({ to, label }) => (
             <NavLink key={to} to={to} end={to === '/'}
@@ -74,7 +71,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-2.5">
           {isAuthenticated ? (
             <>
@@ -110,7 +106,6 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className={`md:hidden p-2 rounded-lg transition-colors ${isDark ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'}`}
           onClick={() => setOpen(v => !v)} aria-label="Toggle menu"
@@ -119,7 +114,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile drawer */}
       {open && (
         <div className="md:hidden bg-[#060d3a]/98 border-t border-white/10 shadow-2xl backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">

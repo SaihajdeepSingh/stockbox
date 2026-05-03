@@ -7,7 +7,6 @@ import TradeModal from '@/components/TradeModal';
 import toast from 'react-hot-toast';
 import type { StockListItem, Portfolio } from '@/types';
 
-/* ── Stat Card ── */
 function StatCard({ label, value, sub, positive }: { label: string; value: string; sub?: string; positive?: boolean }) {
   return (
     <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition-shadow">
@@ -22,7 +21,6 @@ function StatCard({ label, value, sub, positive }: { label: string; value: strin
   );
 }
 
-/* ── Stock Row ── */
 function StockRow({ stock, selected, onClick }: { stock: StockListItem; selected: boolean; onClick: () => void }) {
   const up = (stock.changePct ?? 0) >= 0;
   return (
@@ -101,7 +99,6 @@ export default function Dashboard() {
   return (
     <div className="space-y-5 animate-fade-in">
 
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-black text-slate-900">Trading Terminal</h1>
@@ -116,7 +113,6 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Cash Balance"   value={formatINR(portfolio?.cashBalance ?? 0, true)} sub="Available to trade" />
         <StatCard label="Portfolio Value" value={formatINR(portfolio?.totalValue ?? 0, true)} sub={`${portfolio?.holdings?.length ?? 0} stocks`} />
@@ -126,10 +122,8 @@ export default function Dashboard() {
           sub={formatPct(portfolio?.totalPnLPct ?? 0)} positive={(portfolio?.totalPnL ?? 0) >= 0} />
       </div>
 
-      {/* Main grid */}
       <div className="grid lg:grid-cols-[230px_1fr] gap-4">
 
-        {/* Stock list */}
         <div className="bg-white border border-slate-200/80 rounded-2xl p-3 flex flex-col gap-2 shadow-sm">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -144,10 +138,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Chart + trade */}
         <div className="flex flex-col gap-4">
 
-          {/* Chart card */}
           <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex-1">
             {selected ? (
               <>
@@ -185,10 +177,8 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* Trade + Position row */}
           <div className="grid sm:grid-cols-2 gap-4">
 
-            {/* Quick Trade */}
             <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between gap-4">
               <div>
                 <h3 className="font-black text-slate-900 mb-1">Quick Trade</h3>
@@ -208,7 +198,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Position */}
             <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm">
               <h3 className="font-black text-slate-900 mb-3">Your Position</h3>
               {currentHolding ? (

@@ -1,5 +1,3 @@
-// src/types/index.ts — Shared TypeScript types
-
 export interface User {
   _id: string;
   name: string;

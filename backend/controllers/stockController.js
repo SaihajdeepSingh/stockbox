@@ -1,10 +1,7 @@
-// controllers/stockController.js — Real stock data via Yahoo Finance (free, no API key needed)
-// Yahoo Finance supports all NSE stocks in INR natively
 const axios = require('axios');
 
-// In-memory cache to avoid hammering Yahoo Finance
 const cache = new Map();
-const CACHE_TTL = 15 * 1000; // 15 seconds
+const CACHE_TTL = 15 * 1000;
 
 const yahooGet = async (url, params = {}) => {
   const key = url + JSON.stringify(params);
@@ -24,7 +21,6 @@ const yahooGet = async (url, params = {}) => {
   return res.data;
 };
 
-// Convert NSE:RELIANCE → RELIANCE.NS  (Yahoo Finance format)
 const toYahoo = (symbol) => {
   const s = symbol.toUpperCase().replace('NSE:', '').trim();
   return `${s}.NS`;
@@ -55,7 +51,6 @@ const POPULAR_STOCKS = [
 
 const YAHOO_CHART = 'https://query1.finance.yahoo.com/v8/finance/chart';
 
-// Fetch a live quote for one Yahoo symbol
 const fetchQuote = async (yahooSymbol) => {
   const data   = await yahooGet(`${YAHOO_CHART}/${yahooSymbol}`, { interval: '1d', range: '1d' });
   const result = data?.chart?.result?.[0];
@@ -78,7 +73,6 @@ const fetchQuote = async (yahooSymbol) => {
   };
 };
 
-// GET /api/stocks/popular
 const getPopularStocks = async (req, res, next) => {
   try {
     const results = await Promise.allSettled(
@@ -95,7 +89,6 @@ const getPopularStocks = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/stocks/quote/:symbol
 const getQuote = async (req, res, next) => {
   try {
     const { symbol } = req.params;
@@ -107,13 +100,11 @@ const getQuote = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/stocks/candles/:symbol?resolution=D&from=&to=
 const getCandles = async (req, res, next) => {
   try {
     const { symbol } = req.params;
     const yahooSymbol = toYahoo(symbol);
 
-    // Use period1/period2 from frontend so each timeframe returns different data
     const to   = req.query.to   ? parseInt(req.query.to)   : Math.floor(Date.now() / 1000);
     const from = req.query.from ? parseInt(req.query.from) : to - 90 * 24 * 60 * 60;
 
@@ -146,7 +137,6 @@ const getCandles = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/stocks/search?q=
 const searchStocks = async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -159,7 +149,6 @@ const searchStocks = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/stocks/news — Finnhub for news (works on free tier)
 const getMarketNews = async (req, res, next) => {
   try {
     const key = process.env.FINNHUB_API_KEY;
@@ -175,7 +164,6 @@ const getMarketNews = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-// GET /api/stocks/company-news/:symbol
 const getCompanyNews = async (req, res, next) => {
   try {
     const key = process.env.FINNHUB_API_KEY;

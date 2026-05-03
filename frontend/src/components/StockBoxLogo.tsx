@@ -9,7 +9,6 @@ export default function StockBoxLogo({ size = 36, className = '' }: StockBoxLogo
       className={`relative flex items-center justify-center rounded-[9px] bg-blue-700 flex-shrink-0 overflow-hidden ${className}`}
       style={{ width: size, height: size }}
     >
-      {/* Bold S lettermark */}
       <span
         style={{
           fontFamily: '"Arial Black", "Arial", sans-serif',
@@ -26,7 +25,6 @@ export default function StockBoxLogo({ size = 36, className = '' }: StockBoxLogo
         S
       </span>
 
-      {/* Rising arrow — shifted 4px right vs before */}
       <svg
         viewBox="0 0 36 36"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 2 }}

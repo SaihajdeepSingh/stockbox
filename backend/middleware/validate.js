@@ -1,7 +1,5 @@
-// middleware/validate.js — Input validation (Syllabus: Lecture 13-16)
 const { body, param, query, validationResult } = require('express-validator');
 
-// Reusable runner — returns 422 with error details if validation fails
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

@@ -36,7 +36,6 @@ export default function History() {
         <p className="text-sm text-slate-400 mt-0.5 font-medium">All your buy and sell orders</p>
       </div>
 
-      {/* Stats */}
       {stats && (
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
@@ -54,7 +53,6 @@ export default function History() {
         </div>
       )}
 
-      {/* Table */}
       <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100 flex items-center gap-2">
           <HistoryIcon className="w-4 h-4 text-blue-600" />

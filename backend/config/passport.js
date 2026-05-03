@@ -1,4 +1,3 @@
-// config/passport.js — Passport.js Local Strategy (Syllabus: Lecture 41-44)
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User          = require('../models/User');

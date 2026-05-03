@@ -76,7 +76,6 @@ export default function Products() {
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Navbar />
 
-      {/* Hero */}
       <section className="relative bg-[#060d3a] overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px)', backgroundSize:'48px 48px' }} />
         <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-blue-600/20 rounded-full blur-3xl" />
@@ -97,7 +96,6 @@ export default function Products() {
         <div className="h-12 bg-gradient-to-b from-transparent to-[#f8fafc]" />
       </section>
 
-      {/* Products */}
       <section className="section bg-[#f8fafc]">
         <div ref={productsReveal.ref}
           className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 ${productsReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -130,7 +128,6 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Tech Stack */}
       <section className="py-16 bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage:'radial-gradient(circle at 70% 50%, rgba(29,78,216,0.12) 0%, transparent 60%)' }} />
         <div ref={stackReveal.ref}
@@ -140,7 +137,6 @@ export default function Products() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="relative bg-[#060d3a] py-24 overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage:'radial-gradient(circle at 50% 0%, rgba(29,78,216,0.35) 0%, transparent 65%)' }} />
         <div className="absolute inset-0" style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.04) 1px,transparent 1px)', backgroundSize:'48px 48px' }} />

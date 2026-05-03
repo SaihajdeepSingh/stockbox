@@ -14,9 +14,9 @@ interface FormState {
 const EMPTY: FormState = { firstName:'', lastName:'', email:'', phone:'', subject: TOPICS[0], message:'', newsletter: false };
 
 export default function Support() {
-  const [form, setForm]         = useState<FormState>(EMPTY);
-  const [loading, setLoading]   = useState(false);
-  const [submitted,setSubmitted]= useState(false);
+  const [form, setForm]          = useState<FormState>(EMPTY);
+  const [loading, setLoading]    = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -41,7 +41,6 @@ export default function Support() {
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Navbar />
 
-      {/* Hero */}
       <section className="relative bg-[#060d3a] overflow-hidden"
         style={{ backgroundImage:'linear-gradient(rgba(59,130,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.06) 1px,transparent 1px)', backgroundSize:'48px 48px' }}>
         <div className="absolute top-0 right-0 w-[500px] h-[350px] bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
@@ -57,12 +56,11 @@ export default function Support() {
             Found a bug, stuck on setup, or have a feature idea? We read every message and reply fast.
           </p>
 
-          {/* Channel cards inside hero */}
           <div className="grid sm:grid-cols-3 gap-3 mt-10">
             {[
-              { icon: Mail,          label: 'Email',        val: 'support@stockbox.in', note: 'Detailed issues' },
-              { icon: MessageSquare, label: 'Live Chat',    val: 'Inside dashboard',    note: 'Fastest reply'   },
-              { icon: Clock,         label: 'Response',     val: 'Within 24 hours',     note: 'Mon to Sat'      },
+              { icon: Mail,          label: 'Email',     val: 'support@stockbox.in', note: 'Detailed issues' },
+              { icon: MessageSquare, label: 'Live Chat', val: 'Inside dashboard',    note: 'Fastest reply'   },
+              { icon: Clock,         label: 'Response',  val: 'Within 24 hours',     note: 'Mon to Sat'      },
             ].map(({ icon: Icon, label, val, note }) => (
               <div key={label} className="bg-white/5 border border-white/10 rounded-2xl p-4 hover:border-blue-400/30 hover:bg-white/8 transition-all">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mb-3 shadow-md shadow-blue-900/40">
@@ -77,7 +75,6 @@ export default function Support() {
         </div>
       </section>
 
-      {/* Centered form */}
       <section className="flex-1 py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {submitted ? (

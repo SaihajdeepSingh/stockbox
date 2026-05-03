@@ -1,4 +1,3 @@
-// routes/portfolio.js — Portfolio & trading routes
 const router = require('express').Router();
 const {
   getPortfolio, executeTrade, getHistory, getStats, resetPortfolio,

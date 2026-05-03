@@ -1,4 +1,3 @@
-// src/components/TradeModal.tsx — Buy / Sell order modal
 import { useState } from 'react';
 import { X, TrendingUp, TrendingDown, AlertCircle, IndianRupee } from 'lucide-react';
 import { formatINR } from '@/lib/api';
@@ -51,7 +50,6 @@ export default function TradeModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-slide-up">
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-100">
           <div>
             <h2 className="font-bold text-lg text-slate-900">{stock.name}</h2>
@@ -63,7 +61,6 @@ export default function TradeModal({
         </div>
 
         <div className="p-6 space-y-5">
-          {/* Current price */}
           <div className="flex items-baseline justify-between">
             <span className="text-sm text-slate-500">Market Price</span>
             <div className="text-right">
@@ -76,7 +73,6 @@ export default function TradeModal({
             </div>
           </div>
 
-          {/* Buy/Sell toggle */}
           <div className="flex rounded-xl overflow-hidden border border-slate-200">
             <button
               onClick={() => setType('BUY')}
@@ -101,7 +97,6 @@ export default function TradeModal({
             </button>
           </div>
 
-          {/* Quantity */}
           <div>
             <label className="label">Quantity (shares)</label>
             <div className="flex items-center gap-2">
@@ -128,7 +123,6 @@ export default function TradeModal({
             </div>
           </div>
 
-          {/* Order summary */}
           <div className="bg-slate-50 rounded-xl p-4 space-y-2.5">
             <div className="flex justify-between text-sm">
               <span className="text-slate-500">Price per share</span>
@@ -146,7 +140,6 @@ export default function TradeModal({
             </div>
           </div>
 
-          {/* Balance info */}
           <div className="flex items-center justify-between text-sm text-slate-500">
             <div className="flex items-center gap-1">
               <IndianRupee className="w-3.5 h-3.5" />
@@ -157,7 +150,6 @@ export default function TradeModal({
             )}
           </div>
 
-          {/* Warning */}
           {!canTrade && quantity > 0 && (
             <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-700">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
@@ -169,7 +161,6 @@ export default function TradeModal({
             </div>
           )}
 
-          {/* Execute button */}
           <button
             onClick={handleTrade}
             disabled={!canTrade || loading}

@@ -1,4 +1,3 @@
-// models/Contact.js — Mongoose Schema (Syllabus: Lecture 33-36)
 const mongoose = require('mongoose');
 
 const contactSchema = new mongoose.Schema({

@@ -1,4 +1,3 @@
-// src/context/AuthContext.tsx — Global auth state (React Context + localStorage)
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import api, { getErrorMessage } from '@/lib/api';
 import type { User, AuthContextType } from '@/types';
@@ -10,7 +9,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token,     setToken]     = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Restore session from localStorage on first load
   useEffect(() => {
     const storedToken = localStorage.getItem('sb_token');
     const storedUser  = localStorage.getItem('sb_user');
@@ -67,12 +65,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextType => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>');
   return ctx;
 };
 
-// Re-export for convenience
 export { getErrorMessage };

@@ -1,4 +1,3 @@
-// models/Trade.js — Trade history record (Syllabus: Lecture 33-36)
 const mongoose = require('mongoose');
 
 const tradeSchema = new mongoose.Schema({
@@ -13,11 +12,11 @@ const tradeSchema = new mongoose.Schema({
   exchange:    { type: String, default: 'NSE' },
   type:        { type: String, enum: ['BUY', 'SELL'], required: true },
   quantity:    { type: Number, required: true, min: 1 },
-  price:       { type: Number, required: true, min: 0 },    // price per share at execution
-  total:       { type: Number, required: true, min: 0 },    // quantity × price
+  price:       { type: Number, required: true, min: 0 },
+  total:       { type: Number, required: true, min: 0 },
   balanceBefore:{ type: Number, required: true },
   balanceAfter: { type: Number, required: true },
-  profitLoss:  { type: Number, default: 0 },                // only for SELL trades
+  profitLoss:  { type: Number, default: 0 },
   status:      { type: String, enum: ['executed', 'failed'], default: 'executed' },
   note:        { type: String, default: '' },
 }, { timestamps: true });

@@ -1,4 +1,3 @@
-// src/components/CandlestickChart.tsx — TradingView Lightweight Charts
 import { useEffect, useRef, useState } from 'react';
 import {
   createChart, ColorType, CrosshairMode,
@@ -37,7 +36,6 @@ export default function CandlestickChart({ symbol, height = 400 }: CandlestickCh
   const [error, setError]           = useState('');
   const [lastCandle, setLastCandle] = useState<CandleData | null>(null);
 
-  // Create chart once
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -99,10 +97,8 @@ export default function CandlestickChart({ symbol, height = 400 }: CandlestickCh
       ro.disconnect();
       chart.remove();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height]);
 
-  // Fetch candles when symbol or resolution changes
   useEffect(() => {
     if (!symbol || !seriesRef.current) return;
 
@@ -150,7 +146,6 @@ export default function CandlestickChart({ symbol, height = 400 }: CandlestickCh
 
   return (
     <div className="flex flex-col h-full">
-      {/* OHLC info bar */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1 px-1 mb-3 text-sm">
         {lastCandle ? (
           <>
@@ -169,7 +164,6 @@ export default function CandlestickChart({ symbol, height = 400 }: CandlestickCh
         )}
       </div>
 
-      {/* Resolution selector */}
       <div className="flex gap-1 mb-3">
         {RESOLUTIONS.map(r => (
           <button
@@ -186,7 +180,6 @@ export default function CandlestickChart({ symbol, height = 400 }: CandlestickCh
         ))}
       </div>
 
-      {/* Chart */}
       <div className="relative flex-1">
         {loading && (
           <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10 rounded-lg">

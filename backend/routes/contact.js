@@ -1,9 +1,7 @@
-// routes/contact.js — Contact form routes
 const router  = require('express').Router();
 const Contact = require('../models/Contact');
 const { validate, contactRules } = require('../middleware/validate');
 
-// POST /api/contact — submit support form
 router.post('/', contactRules, validate, async (req, res, next) => {
   try {
     const { firstName, lastName, email, phone, subject, message, newsletter } = req.body;

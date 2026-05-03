@@ -1,268 +1,189 @@
-# 📈 StockBox — Paper Trading Simulator
+# StockBox
 
-> Practice NSE stock trading with ₹10,00,000 virtual money and real-time prices. Zero financial risk.
+A paper trading simulator for NSE stocks. Practice buying and selling with Rs.10,00,000 virtual money at real market prices. No real money involved.
+
+Built as a full-stack web application for learning purposes.
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| **Frontend** | React 18 + TypeScript + Vite + Tailwind CSS |
-| **Backend** | Node.js + Express.js |
-| **Database** | MongoDB (via Mongoose ODM) |
-| **Auth** | JWT + Bcrypt + Passport.js |
-| **Charts** | TradingView Lightweight Charts |
-| **Market Data** | Finnhub API (free tier) |
-| **Frontend Deploy** | Vercel |
-| **Backend Deploy** | Render |
+|---|---|
+| Frontend | React 18, TypeScript, Vite, Tailwind CSS |
+| Backend | Node.js, Express.js |
+| Database | MongoDB via Mongoose |
+| Auth | JWT, Bcrypt, Passport.js |
+| Charts | TradingView Lightweight Charts |
+| Market Data | Yahoo Finance (prices), Finnhub (news) |
+| Deployment | Vercel (frontend), Render (backend) |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 stockbox/
-├── frontend/                   # React + Vite app (deploy to Vercel)
-│   ├── src/
-│   │   ├── components/         # Navbar, Footer, Sidebar, Chart, TradeModal
-│   │   ├── pages/              # Home, About, Products, Pricing, Support, Login, Signup
-│   │   │   └── dashboard/      # Dashboard, Portfolio, History, News
-│   │   ├── context/            # AuthContext (JWT auth state)
-│   │   ├── lib/                # Axios API client + formatters
-│   │   └── types/              # TypeScript interfaces
-│   └── package.json
+├── frontend/
+│   └── src/
+│       ├── components/     Navbar, Footer, Sidebar, Chart, TradeModal, StockBoxLogo
+│       ├── pages/          Home, About, Products, Pricing, Support, Login, Signup
+│       │   └── dashboard/  Dashboard, Portfolio, History, NewsPage
+│       ├── context/        AuthContext
+│       ├── lib/            Axios client, formatters
+│       └── types/          TypeScript interfaces
 │
-└── backend/                    # Express API (deploy to Render)
-    ├── config/                 # MongoDB + Passport setup
-    ├── controllers/            # Business logic
-    ├── middleware/             # Auth (JWT), validation, logger
-    ├── models/                 # User, Portfolio, Trade, Contact
-    ├── routes/                 # auth, stocks, portfolio, contact
+└── backend/
+    ├── config/             MongoDB connection, Passport setup
+    ├── controllers/        authController, stockController, portfolioController
+    ├── middleware/         JWT auth, validation, logger, errorHandler
+    ├── models/             User, Portfolio, Trade, Contact
+    ├── routes/             auth, stocks, portfolio, contact
     └── server.js
 ```
 
 ---
 
-## 🔧 Local Development Setup
+## Local Development
 
-### Prerequisites
-- Node.js 18+
-- MongoDB Atlas account (free) OR local MongoDB
-- Finnhub API key (free at https://finnhub.io)
+### Requirements
 
----
+- Node.js 18 or higher
+- MongoDB Atlas account (free M0 tier works fine)
+- Finnhub API key (free at finnhub.io, used for news feed)
 
-### 1. Clone & Install
-
-```bash
-# Install backend dependencies
-cd backend
-npm install
-
-# Install frontend dependencies
-cd ../frontend
-npm install
-```
-
----
-
-### 2. Configure Backend
+### Install
 
 ```bash
-cd backend
-cp .env.example .env
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-Edit `backend/.env`:
+### Backend config
+
+Create `backend/.env`:
+
 ```
 PORT=5000
 NODE_ENV=development
 MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/stockbox
-JWT_SECRET=your_long_random_secret_here_min_32_chars
-SESSION_SECRET=another_long_random_secret
-FINNHUB_API_KEY=your_finnhub_api_key
+JWT_SECRET=your_jwt_secret_at_least_32_chars
+SESSION_SECRET=your_session_secret
+FINNHUB_API_KEY=your_finnhub_key
 FRONTEND_URL=http://localhost:5173
 ```
 
-**Get a free Finnhub API key:**
-1. Go to https://finnhub.io
-2. Sign up for free
-3. Copy your API key from the dashboard
+### Frontend config
 
-**Get a free MongoDB URI:**
-1. Go to https://cloud.mongodb.com
-2. Create a free M0 cluster
-3. Click "Connect" → "Connect your application"
-4. Copy the connection string
+Create `frontend/.env`:
 
----
-
-### 3. Configure Frontend
-
-```bash
-cd frontend
-cp .env.example .env
-```
-
-Edit `frontend/.env`:
 ```
 VITE_API_URL=http://localhost:5000/api
 ```
 
----
-
-### 4. Run Development Servers
+### Run
 
 ```bash
-# Terminal 1: Backend
-cd backend
-npm run dev
-# API starts on http://localhost:5000
+# Terminal 1
+cd backend && npm run dev
 
-# Terminal 2: Frontend
-cd frontend
-npm run dev
-# App opens on http://localhost:5173
+# Terminal 2
+cd frontend && npm run dev
+```
+
+Frontend runs on http://localhost:5173. Backend runs on http://localhost:5000.
+
+---
+
+## Deployment
+
+### Backend on Render
+
+1. Go to render.com and create a new Web Service
+2. Connect this GitHub repo
+3. Set Root Directory to `backend`
+4. Build command: `npm install`
+5. Start command: `node server.js`
+6. Add environment variables: `MONGO_URI`, `JWT_SECRET`, `SESSION_SECRET`, `FINNHUB_API_KEY`, `FRONTEND_URL`, `NODE_ENV=production`
+7. Deploy and copy the service URL
+
+### Frontend on Vercel
+
+1. Go to vercel.com and import this GitHub repo
+2. Set Root Directory to `frontend`
+3. Framework preset: Vite
+4. Add environment variable: `VITE_API_URL=https://your-render-url.onrender.com/api`
+5. Deploy
+
+After both are live, update `FRONTEND_URL` on Render to your Vercel URL and redeploy.
+
+---
+
+## API Reference
+
+```
+POST   /api/auth/register
+POST   /api/auth/login
+GET    /api/auth/me
+
+GET    /api/stocks/popular
+GET    /api/stocks/quote/:symbol
+GET    /api/stocks/candles/:symbol
+GET    /api/stocks/news
+
+GET    /api/portfolio
+POST   /api/portfolio/trade
+GET    /api/portfolio/history
+GET    /api/portfolio/stats
+POST   /api/portfolio/reset
+
+POST   /api/contact
 ```
 
 ---
 
-## 🌐 Deployment
-
-### Deploy Backend to Render (Free)
-
-1. Push your `backend/` folder to GitHub
-2. Go to https://render.com → New → Web Service
-3. Connect your GitHub repo
-4. Configure:
-   - **Build Command:** `npm install`
-   - **Start Command:** `node server.js`
-   - **Environment:** Node
-5. Add Environment Variables (same as `.env`):
-   - `MONGO_URI`
-   - `JWT_SECRET`
-   - `SESSION_SECRET`
-   - `FINNHUB_API_KEY`
-   - `FRONTEND_URL` → your Vercel URL
-   - `NODE_ENV=production`
-6. Deploy — your API URL will be something like `https://stockbox-api.onrender.com`
-
-### Deploy Frontend to Vercel (Free)
-
-1. Push `frontend/` folder to GitHub
-2. Go to https://vercel.com → New Project
-3. Import your repo
-4. Configure:
-   - **Framework Preset:** Vite
-   - **Root Directory:** `frontend`
-5. Add Environment Variable:
-   - `VITE_API_URL` = `https://your-stockbox-api.onrender.com/api`
-6. Deploy!
-
----
-
-## 🎓 Syllabus Coverage
-
-| Topic | Implementation |
-|-------|---------------|
-| Node.js & Express setup | `server.js` — routes, middleware, error handling |
-| REST API design | `/api/auth`, `/api/stocks`, `/api/portfolio`, `/api/contact` |
-| Middleware | Auth JWT, validation (express-validator), Morgan logger, Helmet, CORS |
-| Error handling | 4-param `errorHandler`, custom HTTP status codes |
-| MongoDB + Mongoose | User, Portfolio, Trade, Contact schemas with indexes |
-| Schema features | Pre-save hooks, instance methods, virtuals, compound indexes |
-| Authentication | JWT (jsonwebtoken) + bcrypt password hashing |
-| Passport.js | Local strategy in `config/passport.js` |
-| Session management | express-session for Passport, JWT for API |
-| Input validation | express-validator rules per route |
-| Rate limiting | express-rate-limit on all routes + stricter on auth |
-| Security | Helmet headers, CORS whitelist |
-| Frontend | React 18, TypeScript, React Router v6, Tailwind CSS |
-| State management | React Context (AuthContext) + localStorage |
-| API integration | Axios with JWT interceptor, auto-logout on 401 |
-| Real-time data | Finnhub API for live NSE stock prices + candles + news |
-| Charts | TradingView Lightweight Charts (candlestick) |
-| Deployment | Vercel (frontend) + Render (backend) + MongoDB Atlas |
-
----
-
-## 📱 Pages
+## Pages
 
 | Route | Description |
-|-------|-------------|
-| `/` | Landing page with hero, features, testimonials |
-| `/about` | Company story, mission, team |
-| `/products` | Feature list with tech stack |
-| `/pricing` | Free plan features, FAQ |
-| `/support` | Contact form (saves to MongoDB) |
-| `/login` | JWT login |
-| `/signup` | Registration with ₹10L virtual balance |
-| `/dashboard` | Trading terminal with live chart |
-| `/dashboard/portfolio` | Holdings with live P&L |
-| `/dashboard/history` | Paginated trade history |
-| `/dashboard/news` | Finnhub market news |
+|---|---|
+| / | Landing page |
+| /about | Origin story |
+| /products | Feature breakdown |
+| /pricing | Free plan details and FAQ |
+| /support | Contact form |
+| /login | Sign in |
+| /signup | Create account |
+| /dashboard | Trading terminal with live candlestick chart |
+| /dashboard/portfolio | Holdings, P&L, allocation |
+| /dashboard/history | Paginated trade log |
+| /dashboard/news | Market news from Finnhub |
 
 ---
 
-## 🏦 Paper Trading Logic
+## Trading Logic
 
-- Each new user gets **₹10,00,000** virtual balance in their Portfolio document
-- **BUY**: Deducts `quantity × livePrice` from `cashBalance`, adds holding with weighted average cost
-- **SELL**: Adds `quantity × livePrice` to `cashBalance`, removes/reduces holding, records realised P&L
-- All prices fetched live from Finnhub at trade execution time
-- Portfolio enriched with live prices on every load
+Every new account starts with Rs.10,00,000 virtual cash.
+
+Buy orders deduct `quantity x live price` from cash and add the holding using weighted average cost basis. Sell orders credit `quantity x live price` back to cash, reduce the holding, and record realised P&L. Prices are fetched live from Yahoo Finance at trade execution time. The portfolio is enriched with current prices on every load.
 
 ---
 
-## 🔑 API Endpoints
+## Notes
 
-```
-POST   /api/auth/register          Create account
-POST   /api/auth/login             Login + get JWT
-GET    /api/auth/me                Get current user (protected)
-PUT    /api/auth/profile           Update profile (protected)
-
-GET    /api/stocks/popular         Top NSE stocks with quotes
-GET    /api/stocks/quote/:symbol   Single stock quote
-GET    /api/stocks/candles/:symbol OHLCV candle data
-GET    /api/stocks/search          Search stocks
-GET    /api/stocks/news            Market news
-GET    /api/stocks/company-news/:s Company-specific news
-
-GET    /api/portfolio              Get portfolio with live prices
-POST   /api/portfolio/trade        Execute BUY or SELL
-GET    /api/portfolio/history      Trade history (paginated)
-GET    /api/portfolio/stats        Summary statistics
-POST   /api/portfolio/reset        Reset to ₹10L
-
-POST   /api/contact                Submit support form
-```
+- Paper trading only. No real money, no real orders.
+- Yahoo Finance is used for NSE stock prices and candlestick data.
+- Finnhub free tier handles up to 60 API calls per minute.
+- NSE market hours are 9:15 AM to 3:30 PM IST on weekdays. Prices outside market hours are the last closing price.
+- Render free tier spins down after 15 minutes of inactivity. The first request after sleep takes around 30 seconds.
+- MongoDB Atlas M0 provides 512 MB storage which is sufficient for development and light use.
 
 ---
 
-## ⚠️ Important Notes
+## Possible Future Work
 
-- **Paper trading only** — no real money is involved
-- Finnhub free tier: 60 API calls/minute (sufficient for demo)
-- NSE market hours: 9:15 AM – 3:30 PM IST weekdays
-- Stock prices may be delayed ~15 seconds on free tier
-- MongoDB Atlas M0 free tier: 512MB storage (more than enough)
-- Render free tier sleeps after 15 min inactivity (first request is slow)
-
----
-
-## 🛠️ Next Steps (Future Enhancements)
-
-- [ ] WebSocket for real-time price streaming
-- [ ] Watchlist feature
-- [ ] Price alerts via email
-- [ ] More stocks (BSE, Nifty 50 full list)
-- [ ] Options paper trading
-- [ ] Leaderboard among users
-- [ ] Technical indicators (RSI, MACD, Bollinger Bands)
-- [ ] Mobile app (React Native)
-
----
-
-*Built with ❤️ as an educational project. Not for real trading.*
+- WebSocket streaming for real-time price updates
+- Watchlist with price alerts
+- Full Nifty 50 stock coverage
+- Technical indicators such as RSI, MACD, and Bollinger Bands
+- User leaderboard
+- Mobile app
